@@ -13,6 +13,21 @@ public class Gizmo
 {
     #region DrawFunctions
 
+    /// <summary>
+    ///   <para>Draws a line from start to start + dir in world coordinates.</para>
+    /// </summary>
+    /// <param name="start">Point in world space where the ray should start.</param>
+    /// <param name="dir">Direction and length of the ray.</param>
+    /// <param name="color">Color of the drawn line.</param>
+    /// <param name="duration">How long the line will be visible for (in seconds).</param>
+    /// <param name="depthTest">Determines whether objects closer to the camera obscure the line.</param>
+    public static void DrawRay(Vector3 position, Vector3 direction, Color color, float duration = 0,
+        bool depthTest = true)
+    {
+        Debug.DrawRay(position, direction, color, duration, depthTest);
+    }
+
+
     // tesdt
     /// <summary>
     /// 	- Debugs a point.
@@ -128,7 +143,7 @@ public class Gizmo
     {
         DrawBounds(bounds, Color.white, duration, depthTest);
     }
-    
+
     /// <summary>
     ///     - Debugs a local cube.
     /// </summary>
@@ -176,7 +191,7 @@ public class Gizmo
         Debug.DrawLine(rbf, ruf, color, duration, depthTest);
         Debug.DrawLine(lbf, luf, color, duration, depthTest);
     }
-        
+
 
     /// <summary>
     /// 	- Debugs a local cube.
@@ -353,8 +368,8 @@ public class Gizmo
     /// <param name='depthTest'>
     /// 	- Whether or not the circle should be faded when behind other objects.
     /// </param>
-    public static void DrawCircle(Vector3 position, Vector3 upAxis, Color color, float radius = 1.0f, float duration = 0,
-        bool depthTest = true)
+    public static void DrawCircle(Vector3 position, Vector3 upAxis, Color color, float radius = 1.0f,
+        float duration = 0, bool depthTest = true)
     {
         Vector3 up = upAxis.normalized * radius;
         Vector3 forward = Vector3.Slerp(up, -up, 0.5f);
@@ -651,8 +666,8 @@ public class Gizmo
         Debug.DrawRay(position, Vector3.Slerp(forward, -right, angle / 90.0f).normalized * dist, color, duration,
             depthTest);
 
-        DrawCircle(position + forward, direction, color,
-            (forward - (slerpedVector.normalized * dist)).magnitude, duration, depthTest);
+        DrawCircle(position + forward, direction, color, (forward - (slerpedVector.normalized * dist)).magnitude,
+            duration, depthTest);
         DrawCircle(position + (forward * 0.5f), direction, color,
             ((forward * 0.5f) - (slerpedVector.normalized * (dist * 0.5f))).magnitude, duration, depthTest);
     }
